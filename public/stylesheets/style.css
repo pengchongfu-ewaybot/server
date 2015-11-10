@@ -1,8 +1,39 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+.content-area{
+    padding:50px 0 50px 0;
 }
 
-a {
-  color: #00B7FF;
+.footer-area{
+    background-color: #1a1a1a;
+    color: #FFFFFF;
+}
+.page1{
+    background-color: yellowgreen;
+}
+
+.page1 img{
+    width:100px;
+}
+
+.page2{
+    background-color: darkcyan;
+}
+
+.page3{
+    background-color: gray;
+}
+
+.page4{
+    background-color: firebrick;
+}
+
+.page5{
+    background-color: greenyellow;
+}
+
+.page6{
+    background-color: rosybrown;
+}
+
+.page8{
+    background-color: darkgrey;
 }
