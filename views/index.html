@@ -26,14 +26,14 @@
     </div>
 
   <!--页面区域-->
-    <div class="content-area page1">
+    <div class="content-area page1" style="width:100%;height:100%;">
+      <img style="position:absolute;left:0px;top:0px;width:100%;height:100%;z-Index:-1;" src="/images/page1.jpg" />
       <div class="row">
         <div class="large-6 columns">
           <h1>Hello!I'm JUN.</h1>
           <h1>We Grow Together.</h1>
         </div>
         <div class="large-6 columns">
-          <img src="/images/dice.svg"/>
         </div>
       </div>
     </div>
@@ -232,18 +232,30 @@
     <h2>联系我们</h2>
     <a class="close-reveal-modal">&#215;</a>
 
-    <form data-abide>
+    <form data-abide method="post">
+      <div class="title-field">
+        <lable>主题
+          <input placeholder="主题" type="text" name="Title" required>
+        </lable>
+        <small class="error">不能为空</small>
+      </div>
       <div class="name-field">
         <label>您的名字
-          <input placeholder="JUN" type="text" required>
+          <input placeholder="JUN" type="text" name="Name" required>
         </label>
         <small class="error">不能为空</small>
       </div>
       <div class="email-field">
         <label>您的邮箱
-          <input placeholder="info@ewaybot.com" type="email" required>
+          <input placeholder="info@ewaybot.com" type="email" name="Email" required>
         </label>
         <small class="error">请输入正确的格式</small>
+      </div>
+      <div class="content-field">
+        <label>内容
+          <textarea placeholder="请输入" type="text" name="Content" required></textarea>
+        </label>
+        <small将函数作为参数传递并不仅仅出于技术上的 class="error">请输入内容</small将函数作为参数传递并不仅仅出于技术上的>
       </div>
       <button type="submit">提交</button>
     </form>
@@ -258,10 +270,14 @@
     <script>
       $(document).foundation();
 
-      $("form").submit(function(e){
-        var text=$("input[type=text]").val();
-        alert("Submitted"+text);
-      });
+      $('form')
+              .on('valid.fndtn.abide', function () {
+                var title=$(".title-field input").val();
+                var name=$(".name-field input").val();
+                var email=$(".email-field input").val();
+                var content=$(".content-field textarea").val();
+                //alert(title+name+email+content);
+              });
     </script>
   </body>
 </html>
