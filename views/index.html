@@ -232,7 +232,7 @@
     <h2>联系我们</h2>
     <a class="close-reveal-modal">&#215;</a>
 
-    <form data-abide method="post">
+    <form data-abide method="post" enctype="multipart/form-data">
       <div class="title-field">
         <lable>主题
           <input placeholder="主题" type="text" name="Title" required>
@@ -255,7 +255,12 @@
         <label>内容
           <textarea placeholder="请输入" type="text" name="Content" required></textarea>
         </label>
-        <small将函数作为参数传递并不仅仅出于技术上的 class="error">请输入内容</small将函数作为参数传递并不仅仅出于技术上的>
+        <small class="error">请输入内容</small>
+      </div>
+      <div class="file-field">
+        <label>上传简历
+          <input type="file" name="Upload">
+        </label>
       </div>
       <button type="submit">提交</button>
     </form>
@@ -270,14 +275,6 @@
     <script>
       $(document).foundation();
 
-      $('form')
-              .on('valid.fndtn.abide', function () {
-                var title=$(".title-field input").val();
-                var name=$(".name-field input").val();
-                var email=$(".email-field input").val();
-                var content=$(".content-field textarea").val();
-                //alert(title+name+email+content);
-              });
     </script>
   </body>
 </html>
