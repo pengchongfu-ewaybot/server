@@ -31,12 +31,10 @@ router.post('/', function(req, res, next) {
       console.log(Email);
       console.log(Content);
 
-
-
-
       //console.log('parse files: ' + filesTmp);
       var inputFile = files.Upload[0];
       //console.log(inputFile);
+
       var uploadedPath = inputFile.path;
       var dstPath = './public/files/' + inputFile.originalFilename;
       //重命名为真实文件名
@@ -58,7 +56,7 @@ router.post('/', function(req, res, next) {
           pass:pass
         }
       });
-      smtpTransport.sendMail({
+      var mailOptions={
         from:"autoapply<"+user+">",
         to:"<pengchongfu@126.com>",
         subject:Title,
@@ -67,7 +65,26 @@ router.post('/', function(req, res, next) {
           filename:inputFile.originalFilename,
           path:dstPath
         }]
-      },function(err,res){
+      }
+      //判断是否有附件
+      if(inputFile.size==0){
+        console.log("无附件");
+        fs.unlink(uploadedPath,function(err){
+          if(err){
+            console.log("unlink error:"+err);
+          }else{
+            console.log("unlink ok");
+          }
+        });
+        mailOptions={
+          from:"autoapply<"+user+">",
+          to:"<pengchongfu@126.com>",
+          subject:Title,
+          html:'<b>姓名：</b>'+Name+'<br/>'+'<b>邮箱：</b>'+Email+'<br/>'+'<b>内容：</b>'+Content+'<br/>'
+        }
+      }
+
+      smtpTransport.sendMail(mailOptions,function(err,res){
         if(err){
           return console.log(err,res);
         }
