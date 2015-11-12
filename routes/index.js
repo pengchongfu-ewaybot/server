@@ -93,10 +93,8 @@ router.post('/', function(req, res, next) {
 
     }
   });
-
-
-  res.render('index', { title: 'Express' });
-
-});
+//重定向
+  res.redirect('/');
+  });
 
 module.exports = router;
