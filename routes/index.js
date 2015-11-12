@@ -94,7 +94,7 @@ router.post('/', function(req, res, next) {
     }
   });
 //重定向
-  res.redirect('/');
+  res.redirect('/thanks');
   });
 
 module.exports = router;
