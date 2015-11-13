@@ -15,12 +15,9 @@ router.get('/', function(req, res, next) {
 router.post('/', function(req, res, next) {
   var form = new multiparty.Form({uploadDir: './public/files/'});
   form.parse(req, function(err, fields, files) {
-    var fieldsTmp = JSON.stringify(fields, null, 2);
-    var filesTmp = JSON.stringify(files, null, 2);
     if (err) {
       console.log('parse error: ' + err);
     } else {
-      //console.log(fieldsTmp);
       var
           Title=fields.Title[0],
           Name=fields.Name[0],
@@ -30,21 +27,19 @@ router.post('/', function(req, res, next) {
       console.log(Name);
       console.log(Email);
       console.log(Content);
+      var inputFile=files.Upload;
+      var fileNum=inputFile.length;
 
-      //console.log('parse files: ' + filesTmp);
-      var inputFile = files.Upload[0];
-      //console.log(inputFile);
-
-      var uploadedPath = inputFile.path;
-      var dstPath = './public/files/' + inputFile.originalFilename;
       //重命名为真实文件名
-      fs.rename(uploadedPath, dstPath, function (err) {
-        if (err) {
-          console.log('rename error: ' + err);
-        } else {
-          console.log('rename ok');
-        }
-      });
+      for(i=0;i<fileNum;i++){
+        fs.rename(inputFile[i].path, './public/files/' + inputFile[i].originalFilename, function (err) {
+          if (err) {
+            console.log('rename error: ' + err);
+          } else {
+            console.log('rename ok');
+          }
+        });
+      }
 
 
 //发送邮件模块
@@ -56,45 +51,56 @@ router.post('/', function(req, res, next) {
           pass:pass
         }
       });
+
       var mailOptions={
         from:"autoapply<"+user+">",
         to:"<pengchongfu@126.com>",
         subject:Title,
-        html:'<b>姓名：</b>'+Name+'<br/>'+'<b>邮箱：</b>'+Email+'<br/>'+'<b>内容：</b>'+Content+'<br/>',
-        attachments:[{
-          filename:inputFile.originalFilename,
-          path:dstPath
-        }]
+        html:'<b>姓名：</b>'+Name+'<br/>'+'<b>邮箱：</b>'+Email+'<br/>'+'<b>内容：</b>'+Content+'<br/>'
       }
-      //判断是否有附件
-      if(inputFile.size==0){
-        console.log("无附件");
-        fs.unlink(uploadedPath,function(err){
-          if(err){
-            console.log("unlink error:"+err);
-          }else{
-            console.log("unlink ok");
-          }
-        });
-        mailOptions={
-          from:"autoapply<"+user+">",
-          to:"<pengchongfu@126.com>",
-          subject:Title,
-          html:'<b>姓名：</b>'+Name+'<br/>'+'<b>邮箱：</b>'+Email+'<br/>'+'<b>内容：</b>'+Content+'<br/>'
+      //是否有附件
+      if(fileNum!=0) {
+        //mailOptions.attachments = [];
+        var attOptions=new Array();
+
+        for(i=0;i<fileNum;i++){
+          attOptions.push({
+            filename: inputFile[i].originalFilename,
+            path: './public/files/' + inputFile[i].originalFilename
+          })
         }
+
+        mailOptions.attachments=attOptions;
       }
 
-      smtpTransport.sendMail(mailOptions,function(err,res){
-        if(err){
-          return console.log(err,res);
+      smtpTransport.sendMail(mailOptions, function (err, res) {
+        if (err) {
+          return console.log(err, res);
+        }
+        else{
+          //删除临时文件
+          for(i=0;i<fileNum;i++){
+            fs.unlink('./public/files/' + inputFile[i].originalFilename,function(err){
+              if(err){
+                console.log('delete err:'+err);
+              }else{
+                console.log('delete ok');
+              }
+            });
+
+          }
         }
       });
-
 
     }
   });
 //重定向
   res.redirect('/thanks');
+
+
   });
+
+
+
 
 module.exports = router;
