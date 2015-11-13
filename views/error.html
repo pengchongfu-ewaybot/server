@@ -1,99 +1,156 @@
 <!doctype html>
 <html class="no-js" lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>EwayBot</title>
-    <link rel="stylesheet" href="stylesheets/foundation.css" />
-    <link rel="stylesheet" href="stylesheets/style.css"/>
-    <script src="javascripts/vendor/modernizr.js"></script>
-  </head>
-  <body>
-  <!--导航条区域-->
-    <div class="nav-area fixed">
-      <nav class="top-bar" data-topbar role="navifation" data-options="sticky_on:large">
-        <ul class="title-area">
-          <li class="name">
-            <h1><a href="#">EwayBot</a></h1>
-          </li>
-        </ul>
-        <section class="top-bar-section">
-          <ul class="right">
-            <li><a href="#" data-reveal-id="contactModal">联系我们</a></li>
-          </ul>
-        </section>
-      </nav>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EwayBot</title>
+  <link rel="stylesheet" href="stylesheets/foundation.css" />
+  <link rel="stylesheet" href="stylesheets/style.css"/>
+  <script src="javascripts/vendor/modernizr.js"></script>
+</head>
+<body>
+<!--导航条区域-->
+<div class="nav-area fixed">
+  <nav class="top-bar" data-topbar role="navifation" data-options="sticky_on:large">
+    <ul class="title-area">
+      <li class="name">
+        <h1><a href="#">EwayBot</a></h1>
+      </li>
+    </ul>
+    <section class="top-bar-section">
+      <ul class="right">
+        <li><a href="#" data-reveal-id="contactModal">联系我们</a></li>
+      </ul>
+    </section>
+  </nav>
+</div>
+
+<!--页面区域-->
+<div class="content-area page1" style="width:100%;height:100%;">
+  <img style="position:absolute;left:0px;top:0px;width:100%;height:100%;z-Index:-1;" src="/images/page1.jpg" />
+  <div class="row">
+    <div class="large-6 columns">
+      <h1>404</h1>
+      <h1>好像出错了...</h1>
     </div>
-
-  <!--页面区域-->
-    <div class="content-area page1" style="width:100%;height:100%;">
-      <img style="position:absolute;left:0px;top:0px;width:100%;height:100%;z-Index:-1;" src="/images/page1.jpg" />
-      <div class="row">
-        <div class="large-6 columns">
-          <h1>404</h1>
-          <h1>好像出错了...</h1>
-        </div>
-        <div class="large-6 columns">
-        </div>
-      </div>
+    <div class="large-6 columns">
     </div>
+  </div>
+</div>
 
+<div class="content-area page2">
+  <div class="row">
+    <h1>Jun可以做什么</h1>
+    <div class="large-1 columns">
+      <img src="images/dice.svg"/>
+    </div>
+    <div class="large-5 columns">
+      <h3>游戏：满足孩子的天性</h3>
+      <ul>
+        <li>分担家长陪伴孩子游戏的压力</li>
+        <li>有性格的机器人是孩子的小伙伴</li>
+        <li>100个发挥机器人特性的儿童游戏</li>
+      </ul>
+    </div>
+    <div class="large-1 columns">
+      <img src="images/dice.svg"/>
+    </div>
+    <div class="large-5 columns">
+      <h3>教育：陪伴是最好的教育</h3>
+      <ul>
+        <li>将教育与游戏结合</li>
+        <li>在陪伴孩子游戏中对其进行潜移默化</li>
+        <li>不断升级更新，满足孩子成长不同阶段需求</li>
+      </ul>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-1 columns">
+      <img src="images/dice.svg"/>
+    </div>
+    <div class="large-5 columns">
+      <h3>记录：留住童年的影像</h3>
+      <ul>
+        <li>通过人工智能，分析孩子的行为习惯</li>
+        <li>主动记录孩子日常生活，留下童年珍贵影像</li>
+      </ul>
+    </div>
+    <div class="large-1 columns">
+      <img src="images/dice.svg"/>
+    </div>
+    <div class="large-5 columns">
+      <h3>安防：保证孩子的安全</h3>
+      <ul>
+        <li>家中巡逻</li>
+        <li>成为儿童和家长的交流工具</li>
+        <li>帮助家长关注孩子的日常状态</li>
+      </ul>
+    </div>
+  </div>
+</div>
 
+<!--页脚区域-->
+<div class="footer-area">
+  <div class="row">
+    <div class="large-12 columns">
+      &copy; 2015 EwayBot, Inc. All rights reserved.
+    </div>
+  </div>
+</div>
 
-  <!--页脚区域-->
-    <div class="footer-area">
+<!--联系我们对话框-->
+<div id="contactModal" class="reveal-modal" data-reveal>
+  <h2>联系我们</h2>
+  <a class="close-reveal-modal">&#215;</a>
+
+  <form data-abide method="post" enctype="multipart/form-data">
+    <div class="title-field">
+      <label>主题
+        <input placeholder="主题" type="text" name="Title" required>
+      </label>
+      <small class="error">不能为空</small>
+    </div>
+    <div class="name-field">
+      <label>您的名字
+        <input placeholder="JUN" type="text" name="Name" required>
+      </label>
+      <small class="error">不能为空</small>
+    </div>
+    <div class="email-field">
+      <label>您的邮箱
+        <input placeholder="info@ewaybot.com" type="email" name="Email" required>
+      </label>
+      <small class="error">请输入正确的格式</small>
+    </div>
+    <div class="content-field">
+      <label>内容
+        <textarea placeholder="请输入" type="text" name="Content" required></textarea>
+      </label>
+      <small class="error">请输入内容</small>
+    </div>
+    <div class="file-field">
+      <label>上传简历
+        <input type="file" name="Upload" multiple="multiple">
+      </label>
+    </div>
     <div class="row">
-      <div class="large-12 columns">
-        &copy; 2015 EwayBot, Inc. All rights reserved.
+      <div class="large-6 columns">
+        <button type="submit">提交</button>
+
+      </div>
+      <div class="large-6 columns">
+        <span class="round alert label">提交之后请等待对话框自动关闭</span>
       </div>
     </div>
-  </div>
+  </form>
+</div>
 
-  <!--联系我们对话框-->
-  <div id="contactModal" class="reveal-modal" data-reveal>
-    <h2>联系我们</h2>
-    <a class="close-reveal-modal">&#215;</a>
+<script src="javascripts/vendor/jquery.js"></script>
+<script src="javascripts/foundation.min.js"></script>
 
-    <form data-abide method="post" enctype="multipart/form-data">
-      <div class="title-field">
-        <lable>主题
-          <input placeholder="主题" type="text" name="Title" required>
-        </lable>
-        <small class="error">不能为空</small>
-      </div>
-      <div class="name-field">
-        <label>您的名字
-          <input placeholder="JUN" type="text" name="Name" required>
-        </label>
-        <small class="error">不能为空</small>
-      </div>
-      <div class="email-field">
-        <label>您的邮箱
-          <input placeholder="info@ewaybot.com" type="email" name="Email" required>
-        </label>
-        <small class="error">请输入正确的格式</small>
-      </div>
-      <div class="content-field">
-        <label>内容
-          <textarea placeholder="请输入" type="text" name="Content" required></textarea>
-        </label>
-        <small class="error">请输入内容</small>
-      </div>
-      <div class="file-field">
-        <label>上传简历
-          <input type="file" name="Upload">
-        </label>
-      </div>
-      <button type="submit">提交</button>
-    </form>
-  </div>
-
-    <script src="javascripts/vendor/jquery.js"></script>
-    <script src="javascripts/foundation.min.js"></script>
-
-    <script src="javascripts/foundation/foundation.abide.js"></script>
-    <script>
-      $(document).foundation();
-    </script>
-  </body>
+<script src="javascripts/foundation/foundation.abide.js"></script>
+<script>
+  $(document).foundation();
+</script>
+</body>
 </html>
