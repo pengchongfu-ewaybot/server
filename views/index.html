@@ -14,7 +14,7 @@
       <nav class="top-bar" data-topbar role="navigation" data-options="sticky_on:large">
         <ul class="title-area">
           <li class="name">
-            <h1><a href="#">EwayBot</a></h1>
+            <h1><a href="/">EwayBot</a></h1>
           </li>
           <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
         </ul>
@@ -29,14 +29,21 @@
   <!--页面区域-->
     <div class="content-area page1">
       <div class="row">
-        <div class="large-6 small-6 columns">
+        <div class="large-7 small-12 columns">
+          <h1><%=message%></h1>
           <h1>Hello!I'm JUN.</h1>
           <h1>We Grow Together.</h1>
         </div>
-        <div class="large-6 small-6 columns">
-          <img src="/images/dice.svg">
+        <div class="large-5 columns">
         </div>
       </div>
+      <div class="row">
+        <div class="large-7 columns"></div>
+        <div class="large-5 small-10 small-offset-2 columns">
+          <img src="/images/page1_bot.png">
+        </div>
+      </div>
+      <div class="show-for-large-only row" style="height: 100px"></div>
     </div>
 
     <div class="content-area page2">
@@ -65,7 +72,6 @@
         </ul>
       </div>
     </div>
-
 
     <div class="row">
       <div class="large-1 small-3 columns">
@@ -122,7 +128,7 @@
         <h3>轮式移动</h3>
         <ul>
           <li>自由运动</li>
-          <li>自动壁障</li>
+          <li>自动避障</li>
         </ul>
       </div>
     </div>
@@ -130,10 +136,10 @@
 
     <div class="content-area page4">
     <div class="row">
-      <div class="large-6 small-6 columns">
+      <div class="large-6 small-12 columns">
         <h1>We Grow Together</h1>
       </div>
-      <div class="large-6 small-6 columns">
+      <div class="large-6 small-12 columns">
         <img src="images/dice.svg"/>
       </div>
     </div>
@@ -195,7 +201,7 @@
     <div class="content-area page8">
       <div class="row">
         <h1>JUN是每个人的小伙伴</h1>
-        <div class="large-6 small-6 columns">
+        <div class="large-6 small-12 columns">
           <h3>儿童</h3>
           <ul>
             <li>成长中没有孤单，学习中没有烦恼</li>
@@ -213,13 +219,11 @@
             <li>协助管理你的生活，成为你生活和工作的得力伙伴，为你记录人生精彩瞬间</li>
           </ul>
         </div>
-        <div class="large-6 small-6 columns">
+        <div class="large-6 small-12 columns">
           <img src="images/dice.svg"/>
         </div>
       </div>
     </div>
-
-
 
   <!--页脚区域-->
     <div class="footer-area">
@@ -235,7 +239,8 @@
     <h2>联系我们</h2>
     <a class="close-reveal-modal">&#215;</a>
 
-    <form data-abide method="post" enctype="multipart/form-data">
+    <form id="form" data-abide="ajax" action="/" method="post" enctype="multipart/form-data">
+    <!--<form id="form1" data-abide>-->
       <div class="title-field">
         <label>主题
           <input placeholder="主题" type="text" name="Title" required>
@@ -267,22 +272,61 @@
       </div>
       <div class="row">
         <div class="large-6 medium-6 small-6 columns">
-          <button type="submit">提交</button>
-
+          <button id="submit" type="submit">提交</button>
         </div>
         <div class="large-6 medium-6 small-6 columns">
-          <span class="round alert label">提交之后请等待<br/>对话框自动关闭</span>
+          <span class="round alert label">请添加pdf文件<br/>文件大小小于10M<br/>提交之后请等待<br/>对话框自动关闭</span>
         </div>
       </div>
     </form>
   </div>
 
+  <!--感谢对话框-->
+  <div id="thanksModal" class="reveal-modal" data-reveal>
+    <h2>Thanks</h2>
+    <p>非常感谢您的投递，我们会尽快联系您</p>
+    <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+  </div>
+
+  <!--错误对话框-->
+  <div id="errorModal" class="reveal-modal" data-reveal>
+    <h2>Oops</h2>
+    <p>好像出错了...</p>
+    <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+  </div>
+  <div id="toolargeModal" class="reveal-modal" data-reveal>
+    <h2>Oops</h2>
+    <p>文件过大，请重新投递</p>
+    <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+  </div>
+
     <script src="javascripts/vendor/jquery.js"></script>
     <script src="javascripts/foundation.min.js"></script>
-
     <script src="javascripts/foundation/foundation.abide.js"></script>
     <script>
       $(document).foundation();
+      $('#form').on('valid.fndtn.abide', function () {
+          var formData = new FormData($( "#form" )[0]);
+          $.ajax({
+            url: '/' ,
+            type: 'POST',
+            data: formData,
+            async: false,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+              if(data.state==1){
+                $('#thanksModal').foundation('reveal','open');
+              }else{
+                $('#toolargeModal').foundation('reveal','open');
+              }
+            },
+            error: function (data) {
+              ('#errorModal').foundation('reveal','open');
+            }
+          });
+      });
     </script>
   </body>
 </html>

@@ -1,27 +1,29 @@
 var express = require('express');
 var router = express.Router();
-var nodemailer = require("nodemailer");
+var nodemailer = require('nodemailer');
 var multiparty = require('multiparty');
 var util = require('util');
 var fs = require('fs');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.render('index', { message: '' });
 
 });
 router.get('*', function(req, res, next) {
-  res.render('error', { title: 'Express' });
+  res.render('index', { message: '404,好像出错了' });
 
 });
 
 //处理post表单请求
 router.post('/', function(req, res, next) {
-  var form = new multiparty.Form({uploadDir: './public/files/'});
+  var form = new multiparty.Form({uploadDir: './public/files/',maxFilesSize:10485760});
   form.parse(req, function(err, fields, files) {
     if (err) {
       console.log('parse error: ' + err);
+      res.json({state:0});//ajax返回值
     } else {
+      res.json({state:1});//ajax返回值
       var
           Title=fields.Title[0],
           Name=fields.Name[0],
@@ -33,6 +35,8 @@ router.post('/', function(req, res, next) {
       console.log(Content);
       var inputFile=files.Upload;
       var fileNum=inputFile.length;
+      if(inputFile[0].size==0)fileNum=0;//不管是否上传文件，inputFile.length>=1；因此更加文件大小判断该文件是否存在
+      console.log(fileNum);
 
       //重命名为真实文件名
       for(i=0;i<fileNum;i++){
@@ -44,7 +48,6 @@ router.post('/', function(req, res, next) {
           }
         });
       }
-
 
 //发送邮件模块
       var user="autoapply@ewaybot.com",pass="Ewaybot01";
@@ -64,16 +67,13 @@ router.post('/', function(req, res, next) {
       }
       //是否有附件
       if(fileNum!=0) {
-        //mailOptions.attachments = [];
         var attOptions=new Array();
-
         for(i=0;i<fileNum;i++){
           attOptions.push({
             filename: inputFile[i].originalFilename,
             path: './public/files/' + inputFile[i].originalFilename
           })
         }
-
         mailOptions.attachments=attOptions;
       }
 
@@ -98,11 +98,6 @@ router.post('/', function(req, res, next) {
 
     }
   });
-//重定向
-  res.redirect('/thanks');
-
-
   });
-
 
 module.exports = router;
