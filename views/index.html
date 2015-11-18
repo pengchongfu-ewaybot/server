@@ -275,7 +275,7 @@
           <button id="submit" type="submit">提交</button>
         </div>
         <div class="large-6 medium-6 small-6 columns">
-          <span class="round alert label">请添加pdf文件<br/>文件大小小于10M<br/>提交之后请等待<br/>对话框自动关闭</span>
+          <span class="round alert label">请添加pdf文件<br/>文件大小小于10M</span>
         </div>
       </div>
     </form>
@@ -294,9 +294,16 @@
     <p>好像出错了...</p>
     <a class="close-reveal-modal" aria-label="Close">&#215;</a>
   </div>
+  <!--文件过大对话框-->
   <div id="toolargeModal" class="reveal-modal" data-reveal>
     <h2>Oops</h2>
     <p>文件过大，请重新投递</p>
+    <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+  </div>
+  <!--等待过大对话框-->
+  <div id="waitModal" class="reveal-modal" data-reveal>
+    <h2>Oops</h2>
+    <p>文件上传中，请等待对话框自动关闭</p>
     <a class="close-reveal-modal" aria-label="Close">&#215;</a>
   </div>
 
@@ -306,6 +313,7 @@
     <script>
       $(document).foundation();
       $('#form').on('valid.fndtn.abide', function () {
+        $('waitModal').foundation('reveal','open');
           var formData = new FormData($( "#form" )[0]);
           $.ajax({
             url: '/' ,
