@@ -267,7 +267,11 @@
       </div>
       <div class="file-field">
         <label>上传简历
-          <input id="f" type="file" name="Upload" multiple="multiple">
+          <div class="row">
+            <div class="large-4 small-4 columns"><input id="f" type="file" name="Upload" multiple="multiple"></div>
+            <div class="large-4 small-8 columns" style="color: red">只能提交pdf文件，并且文件小于等于10M</div>
+            <div class="large-4 small-0 columns"></div>
+          </div>
         </label>
       </div>
       <div class="row">
@@ -275,7 +279,7 @@
           <button id="submit" type="submit">提交</button>
         </div>
         <div class="large-6 medium-6 small-6 columns">
-          <span class="round alert label">请注意：只能提交pdf文件<br/>并且文件大小小于10M</span>
+          <!--<span class="round alert label">请注意：只能提交pdf文件<br/>并且文件大小小于10M</span>-->
         </div>
       </div>
     </form>
