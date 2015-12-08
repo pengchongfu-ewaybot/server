@@ -8,11 +8,10 @@ var fs = require('fs');
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { message: '' });
-
 });
+
 router.get('*', function(req, res, next) {
   res.render('index', { message: '404,好像出错了' });
-
 });
 
 //处理post表单请求
@@ -61,7 +60,7 @@ router.post('/', function(req, res, next) {
 
       var mailOptions={
         from:"autoapply<"+user+">",
-        to:"<pengchongfu@126.com>",
+        to:"<pengchongfu@126.com>",//此处修改为HR的邮箱
         subject:Title,
         html:'<b>姓名：</b>'+Name+'<br/>'+'<b>邮箱：</b>'+Email+'<br/>'+'<b>内容：</b>'+Content+'<br/>'
       }

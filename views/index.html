@@ -279,7 +279,6 @@
           <button id="submit" type="submit">提交</button>
         </div>
         <div class="large-6 medium-6 small-6 columns">
-          <!--<span class="round alert label">请注意：只能提交pdf文件<br/>并且文件大小小于10M</span>-->
         </div>
       </div>
     </form>
@@ -311,7 +310,7 @@
     <a class="close-reveal-modal" aria-label="Close">&#215;</a>
   </div>
   <!--等待对话框-->
-  <div id="waitModal" class="reveal-modal" data-reveal>
+  <div id="waitModal" class="reveal-modal tiny" data-reveal>
     <h2>Wait</h2>
     <p>文件上传中，请等待对话框自动关闭</p>
     <a class="close-reveal-modal" aria-label="Close">&#215;</a>
@@ -339,11 +338,12 @@
             $('#filesizeModal').foundation('reveal','open');
             return;
           }
-          //$('#waitModal').foundation('reveal','open');
+          $('#waitModal').foundation('reveal','open');
         }
 
-        //发送表单
 
+
+        //发送表单
           var formData = new FormData($( "#form" )[0]);
           $.ajax({
             url: '/' ,
@@ -355,11 +355,9 @@
             processData: false,
             success: function (data) {
               if(data.state==1){
-                $('#waitModal').foundation('reveal','close');
                 $('#thanksModal').foundation('reveal','open');
               }else{
-                $('#waitModal').foundation('reveal','close');
-                $('#filesizeModal').foundation('reveal','open');
+                $('#errorModal').foundation('reveal','open');
               }
             },
             error: function (data) {
